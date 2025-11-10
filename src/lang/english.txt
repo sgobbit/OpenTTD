@@ -4029,6 +4029,14 @@ STR_COMPANY_VIEW_PRESIDENT_NAME_TOOLTIP                         :{BLACK}Change t
 STR_COMPANY_VIEW_COMPANY_NAME_QUERY_CAPTION                     :Company Name
 STR_COMPANY_VIEW_PRESIDENT_S_NAME_QUERY_CAPTION                 :Manager's Name
 STR_COMPANY_VIEW_GIVE_MONEY_QUERY_CAPTION                       :Enter the amount of money you want to give
+STR_COMPANY_VIEW_CREATE_SUBSIDIARY_BUTTON                       :{BLACK}Create Subsidiary
+STR_COMPANY_VIEW_CREATE_SUBSIDIARY_TOOLTIP                      :{BLACK}Create a new subsidiary company
+STR_COMPANY_VIEW_CONFIGURE_INFRA_SHARING_BUTTON                 :{BLACK}Infrastructure Sharing
+STR_COMPANY_VIEW_CONFIGURE_INFRA_SHARING_TOOLTIP                :{BLACK}Configure infrastructure sharing settings
+
+STR_CREATE_SUBSIDIARY_QUERY_CAPTION                             :Subsidiary Name
+STR_CREATE_SUBSIDIARY_QUERY_TOOLTIP                             :Enter the name for the new subsidiary company
+
 
 STR_BUY_COMPANY_MESSAGE                                         :{WHITE}We are looking for a transport company to take-over our company.{}{}Do you want to purchase {COMPANY} for {CURRENCY_LONG}?
 STR_BUY_COMPANY_HOSTILE_TAKEOVER                                :{WHITE}In a hostile takeover of {COMPANY} you will purchase all assets, pay off all loans, and pay two years worth of profits.{}{}The total is estimated to be {CURRENCY_LONG}.{}{}Do you want to continue this hostile takeover?

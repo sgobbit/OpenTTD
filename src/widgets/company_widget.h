@@ -49,6 +49,12 @@ enum CompanyWidgets : WidgetID {
 
 	WID_C_SELECT_MULTIPLAYER,         ///< Multiplayer selection panel.
 	WID_C_COMPANY_JOIN,               ///< Button to join company.
+	
+	/* Extended company features */
+	WID_C_SELECT_SUBSIDIARY,          ///< Selection widget for subsidiary button.
+	WID_C_CREATE_SUBSIDIARY,          ///< Button to create subsidiary.
+	WID_C_SELECT_INFRA_SHARING,       ///< Selection widget for infrastructure sharing.
+	WID_C_CONFIGURE_INFRA_SHARING,    ///< Button to configure infrastructure sharing.
 };
 
 /** Widgets of the #CompanyFinancesWindow class. */
