@@ -11,6 +11,7 @@
 #include "company_base.h"
 #include "company_func.h"
 #include "company_gui.h"
+#include "company_extended_func.h"
 #include "core/backup_type.hpp"
 #include "town.h"
 #include "news_func.h"
@@ -74,6 +75,12 @@ Company::Company(StringID name_1, bool is_ai)
 	this->clear_limit        = (uint32_t)_settings_game.construction.clear_frame_burst << 16;
 	this->tree_limit         = (uint32_t)_settings_game.construction.tree_frame_burst << 16;
 	this->build_object_limit = (uint32_t)_settings_game.construction.build_object_frame_burst << 16;
+
+	/* Initialize extended company features */
+	this->company_type = CHT_HOLDING;
+	this->parent_company = INVALID_OWNER;
+	this->infra_sharing_mode = ISM_DISABLED;
+	InitializeInfrastructureFees(this);
 
 	InvalidateWindowData(WC_PERFORMANCE_DETAIL, 0, CompanyID::Invalid());
 }

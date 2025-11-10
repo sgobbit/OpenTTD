@@ -1556,6 +1556,18 @@ STR_CONFIG_SETTING_INDUSTRY_CARGO_SCALE                         :Scale industry 
 STR_CONFIG_SETTING_INDUSTRY_CARGO_SCALE_HELPTEXT                :Scale the cargo production of industries by this percentage
 STR_CONFIG_SETTING_CARGO_SCALE_VALUE                            :{NUM}%
 
+STR_CONFIG_SETTING_ENABLE_SUBSIDIARIES                          :Enable company subsidiaries: {STRING2}
+STR_CONFIG_SETTING_ENABLE_SUBSIDIARIES_HELPTEXT                 :Allow holding companies to create subsidiary companies that don't count toward the company limit
+
+STR_CONFIG_SETTING_ENABLE_INFRA_SHARING                         :Enable infrastructure sharing: {STRING2}
+STR_CONFIG_SETTING_ENABLE_INFRA_SHARING_HELPTEXT                :Allow companies to use each other's infrastructure (tracks, stations, airports) for a configurable fee
+
+STR_CONFIG_SETTING_ENABLE_ASSET_TRADING                         :Enable asset trading: {STRING2}
+STR_CONFIG_SETTING_ENABLE_ASSET_TRADING_HELPTEXT                :Allow companies to buy and sell vehicles, stations, and infrastructure sections from each other
+
+STR_CONFIG_SETTING_ENABLE_STOCK_MARKET                          :Enable stock market: {STRING2}
+STR_CONFIG_SETTING_ENABLE_STOCK_MARKET_HELPTEXT                 :Enable a simplified stock market system where companies can buy and sell shares in other companies
+
 STR_CONFIG_SETTING_AUTORENEW_VEHICLE                            :Autorenew vehicle when it gets old: {STRING2}
 STR_CONFIG_SETTING_AUTORENEW_VEHICLE_HELPTEXT                   :When enabled, a vehicle nearing its end of life gets automatically replaced when the renew conditions are fulfilled
 
