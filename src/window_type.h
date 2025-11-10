@@ -597,6 +597,11 @@ enum WindowClass : uint16_t {
 	 */
 	WC_COMPANY_INFRASTRUCTURE,
 
+	/**
+	 * Company infrastructure sharing configuration; %Window numbers:
+	 *   - #CompanyID = Infrastructure sharing window
+	 */
+	WC_COMPANY_INFRASTRUCTURE_SHARING,
 
 	/**
 	 * Buyout company (merger); %Window numbers:

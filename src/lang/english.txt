@@ -4035,6 +4035,19 @@ STR_COMPANY_VIEW_CONFIGURE_INFRA_SHARING_BUTTON                 :{BLACK}Infrastr
 STR_COMPANY_VIEW_CONFIGURE_INFRA_SHARING_TOOLTIP                :{BLACK}Configure infrastructure sharing settings
 
 STR_CREATE_SUBSIDIARY_QUERY_CAPTION                             :Subsidiary Name
+STR_INFRASTRUCTURE_SHARING_CAPTION                              :{WHITE}Infrastructure Sharing - {COMPANY}
+STR_INFRASTRUCTURE_SHARING_MODE                                 :Sharing mode:
+STR_INFRASTRUCTURE_SHARING_MODE_TOOLTIP                         :Select infrastructure sharing mode
+STR_INFRASTRUCTURE_SHARING_MODE_DISABLED                        :Disabled
+STR_INFRASTRUCTURE_SHARING_MODE_ALLOWED                         :Allowed
+STR_INFRASTRUCTURE_SHARING_MODE_RESTRICTED                      :Restricted
+STR_INFRASTRUCTURE_SHARING_RAIL_FEE                             :Rail fee per tile:
+STR_INFRASTRUCTURE_SHARING_ROAD_FEE                             :Road fee per tile:
+STR_INFRASTRUCTURE_SHARING_STATION_FEE                          :Station fee per use:
+STR_INFRASTRUCTURE_SHARING_AIRPORT_FEE                          :Airport fee per use:
+STR_INFRASTRUCTURE_SHARING_APPLY                                :{BLACK}Apply
+STR_INFRASTRUCTURE_SHARING_APPLY_TOOLTIP                        :Apply infrastructure sharing configuration
+
 STR_CREATE_SUBSIDIARY_QUERY_TOOLTIP                             :Enter the name for the new subsidiary company
 
 

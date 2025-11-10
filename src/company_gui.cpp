@@ -17,6 +17,7 @@
 #include "viewport_func.h"
 #include "company_func.h"
 #include "company_extended_func.h"
+#include "infrastructure_sharing_gui.h"
 #include "command_func.h"
 #include "network/network.h"
 #include "network/network_gui.h"
@@ -2264,8 +2265,7 @@ struct CompanyWindow : Window
 			
 			case WID_C_CONFIGURE_INFRA_SHARING:
 				if (this->window_number != _local_company) return;
-				/* TODO: Show infrastructure sharing configuration window */
-				ShowErrorMessage(STR_ERROR_MESSAGE, INVALID_STRING_ID, WL_INFO);
+				ShowInfrastructureSharingWindow(this->window_number);
 				break;
 		}
 	}
