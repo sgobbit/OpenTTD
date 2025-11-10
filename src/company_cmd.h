@@ -24,6 +24,10 @@ CommandCost CmdRenameCompany(DoCommandFlags flags, const std::string &text);
 CommandCost CmdRenamePresident(DoCommandFlags flags, const std::string &text);
 CommandCost CmdSetCompanyManagerFace(DoCommandFlags flags, uint style, uint32_t bits);
 CommandCost CmdSetCompanyColour(DoCommandFlags flags, LiveryScheme scheme, bool primary, Colours colour);
+CommandCost CmdCreateSubsidiary(DoCommandFlags flags, const std::string &name);
+CommandCost CmdSetInfrastructureSharing(DoCommandFlags flags, uint8_t mode);
+CommandCost CmdSetInfrastructureFees(DoCommandFlags flags, Money rail_fee, Money road_fee, Money station_fee, Money airport_fee);
+CommandCost CmdTransferCompanyFunds(DoCommandFlags flags, CompanyID dest_company, Money amount);
 
 DEF_CMD_TRAIT(CMD_COMPANY_CTRL,             CmdCompanyCtrl,           CommandFlags({CommandFlag::Spectator, CommandFlag::ClientID, CommandFlag::NoEst}), CMDT_SERVER_SETTING)
 DEF_CMD_TRAIT(CMD_COMPANY_ALLOW_LIST_CTRL,  CmdCompanyAllowListCtrl,  CommandFlag::NoEst,                    CMDT_SERVER_SETTING)
@@ -32,5 +36,9 @@ DEF_CMD_TRAIT(CMD_RENAME_COMPANY,           CmdRenameCompany,         {},       
 DEF_CMD_TRAIT(CMD_RENAME_PRESIDENT,         CmdRenamePresident,       {},                                          CMDT_COMPANY_SETTING)
 DEF_CMD_TRAIT(CMD_SET_COMPANY_MANAGER_FACE, CmdSetCompanyManagerFace, {},                                          CMDT_COMPANY_SETTING)
 DEF_CMD_TRAIT(CMD_SET_COMPANY_COLOUR,       CmdSetCompanyColour,      {},                                          CMDT_COMPANY_SETTING)
+DEF_CMD_TRAIT(CMD_CREATE_SUBSIDIARY,        CmdCreateSubsidiary,      {},                                          CMDT_COMPANY_SETTING)
+DEF_CMD_TRAIT(CMD_SET_INFRASTRUCTURE_SHARING, CmdSetInfrastructureSharing, {},                                    CMDT_COMPANY_SETTING)
+DEF_CMD_TRAIT(CMD_SET_INFRASTRUCTURE_FEES,  CmdSetInfrastructureFees, {},                                          CMDT_COMPANY_SETTING)
+DEF_CMD_TRAIT(CMD_TRANSFER_COMPANY_FUNDS,   CmdTransferCompanyFunds,  {},                                          CMDT_MONEY_MANAGEMENT)
 
 #endif /* COMPANY_CMD_H */

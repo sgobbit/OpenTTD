@@ -16,6 +16,8 @@
 #include "textbuf_gui.h"
 #include "viewport_func.h"
 #include "company_func.h"
+#include "company_extended_func.h"
+#include "infrastructure_sharing_gui.h"
 #include "command_func.h"
 #include "network/network.h"
 #include "network/network_gui.h"
@@ -1900,6 +1902,13 @@ static constexpr std::initializer_list<NWidgetPart> _nested_company_widgets = {
 						NWidget(NWID_SELECTION, INVALID_COLOUR, WID_C_SELECT_MULTIPLAYER),
 							NWidget(WWT_PUSHTXTBTN, COLOUR_GREY, WID_C_COMPANY_JOIN), SetStringTip(STR_COMPANY_VIEW_JOIN, STR_COMPANY_VIEW_JOIN_TOOLTIP),
 						EndContainer(),
+						/* Extended company features buttons */
+						NWidget(NWID_SELECTION, INVALID_COLOUR, WID_C_SELECT_SUBSIDIARY),
+							NWidget(WWT_PUSHTXTBTN, COLOUR_GREY, WID_C_CREATE_SUBSIDIARY), SetStringTip(STR_COMPANY_VIEW_CREATE_SUBSIDIARY_BUTTON, STR_COMPANY_VIEW_CREATE_SUBSIDIARY_TOOLTIP),
+						EndContainer(),
+						NWidget(NWID_SELECTION, INVALID_COLOUR, WID_C_SELECT_INFRA_SHARING),
+							NWidget(WWT_PUSHTXTBTN, COLOUR_GREY, WID_C_CONFIGURE_INFRA_SHARING), SetStringTip(STR_COMPANY_VIEW_CONFIGURE_INFRA_SHARING_BUTTON, STR_COMPANY_VIEW_CONFIGURE_INFRA_SHARING_TOOLTIP),
+						EndContainer(),
 					EndContainer(),
 				EndContainer(),
 			EndContainer(),
@@ -1973,6 +1982,15 @@ struct CompanyWindow : Window
 			reinit |= this->GetWidget<NWidgetStacked>(WID_C_SELECT_MULTIPLAYER)->SetDisplayedPlane((!_networking || !NetworkCanJoinCompany(c->index) || _local_company == c->index) ? (int)SZSP_NONE : 0);
 
 			this->SetWidgetDisabledState(WID_C_COMPANY_JOIN, c->is_ai);
+
+			/* Extended company features buttons. */
+			/* Show create subsidiary button only for local holding companies with the feature enabled */
+			reinit |= this->GetWidget<NWidgetStacked>(WID_C_SELECT_SUBSIDIARY)->SetDisplayedPlane(
+				(local && _settings_game.economy.enable_company_subsidiaries && c->company_type == CHT_HOLDING) ? 0 : SZSP_NONE);
+			
+			/* Show infrastructure sharing button only for local companies with the feature enabled */
+			reinit |= this->GetWidget<NWidgetStacked>(WID_C_SELECT_INFRA_SHARING)->SetDisplayedPlane(
+				(local && _settings_game.economy.enable_infrastructure_sharing) ? 0 : SZSP_NONE);
 
 			if (reinit) {
 				this->ReInit();
@@ -2238,6 +2256,17 @@ struct CompanyWindow : Window
 				}
 				break;
 			}
+			
+			case WID_C_CREATE_SUBSIDIARY:
+				if (this->window_number != _local_company) return;
+				this->query_widget = WID_C_CREATE_SUBSIDIARY;
+				ShowQueryString({}, STR_CREATE_SUBSIDIARY_QUERY_CAPTION, MAX_LENGTH_COMPANY_NAME_CHARS, this, CS_ALPHANUMERAL, {QueryStringFlag::LengthIsInChars});
+				break;
+			
+			case WID_C_CONFIGURE_INFRA_SHARING:
+				if (this->window_number != _local_company) return;
+				ShowInfrastructureSharingWindow(this->window_number);
+				break;
 		}
 	}
 
@@ -2280,6 +2309,10 @@ struct CompanyWindow : Window
 
 			case WID_C_COMPANY_NAME:
 				Command<CMD_RENAME_COMPANY>::Post(STR_ERROR_CAN_T_CHANGE_COMPANY_NAME, *str);
+				break;
+			
+			case WID_C_CREATE_SUBSIDIARY:
+				Command<CMD_CREATE_SUBSIDIARY>::Post(STR_ERROR_MESSAGE, *str);
 				break;
 		}
 	}

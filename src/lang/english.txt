@@ -1556,6 +1556,18 @@ STR_CONFIG_SETTING_INDUSTRY_CARGO_SCALE                         :Scale industry 
 STR_CONFIG_SETTING_INDUSTRY_CARGO_SCALE_HELPTEXT                :Scale the cargo production of industries by this percentage
 STR_CONFIG_SETTING_CARGO_SCALE_VALUE                            :{NUM}%
 
+STR_CONFIG_SETTING_ENABLE_SUBSIDIARIES                          :Enable company subsidiaries: {STRING2}
+STR_CONFIG_SETTING_ENABLE_SUBSIDIARIES_HELPTEXT                 :Allow holding companies to create subsidiary companies that don't count toward the company limit
+
+STR_CONFIG_SETTING_ENABLE_INFRA_SHARING                         :Enable infrastructure sharing: {STRING2}
+STR_CONFIG_SETTING_ENABLE_INFRA_SHARING_HELPTEXT                :Allow companies to use each other's infrastructure (tracks, stations, airports) for a configurable fee
+
+STR_CONFIG_SETTING_ENABLE_ASSET_TRADING                         :Enable asset trading: {STRING2}
+STR_CONFIG_SETTING_ENABLE_ASSET_TRADING_HELPTEXT                :Allow companies to buy and sell vehicles, stations, and infrastructure sections from each other
+
+STR_CONFIG_SETTING_ENABLE_STOCK_MARKET                          :Enable stock market: {STRING2}
+STR_CONFIG_SETTING_ENABLE_STOCK_MARKET_HELPTEXT                 :Enable a simplified stock market system where companies can buy and sell shares in other companies
+
 STR_CONFIG_SETTING_AUTORENEW_VEHICLE                            :Autorenew vehicle when it gets old: {STRING2}
 STR_CONFIG_SETTING_AUTORENEW_VEHICLE_HELPTEXT                   :When enabled, a vehicle nearing its end of life gets automatically replaced when the renew conditions are fulfilled
 
@@ -4017,6 +4029,27 @@ STR_COMPANY_VIEW_PRESIDENT_NAME_TOOLTIP                         :{BLACK}Change t
 STR_COMPANY_VIEW_COMPANY_NAME_QUERY_CAPTION                     :Company Name
 STR_COMPANY_VIEW_PRESIDENT_S_NAME_QUERY_CAPTION                 :Manager's Name
 STR_COMPANY_VIEW_GIVE_MONEY_QUERY_CAPTION                       :Enter the amount of money you want to give
+STR_COMPANY_VIEW_CREATE_SUBSIDIARY_BUTTON                       :{BLACK}Create Subsidiary
+STR_COMPANY_VIEW_CREATE_SUBSIDIARY_TOOLTIP                      :{BLACK}Create a new subsidiary company
+STR_COMPANY_VIEW_CONFIGURE_INFRA_SHARING_BUTTON                 :{BLACK}Infrastructure Sharing
+STR_COMPANY_VIEW_CONFIGURE_INFRA_SHARING_TOOLTIP                :{BLACK}Configure infrastructure sharing settings
+
+STR_CREATE_SUBSIDIARY_QUERY_CAPTION                             :Subsidiary Name
+STR_INFRASTRUCTURE_SHARING_CAPTION                              :{WHITE}Infrastructure Sharing - {COMPANY}
+STR_INFRASTRUCTURE_SHARING_MODE                                 :Sharing mode:
+STR_INFRASTRUCTURE_SHARING_MODE_TOOLTIP                         :Select infrastructure sharing mode
+STR_INFRASTRUCTURE_SHARING_MODE_DISABLED                        :Disabled
+STR_INFRASTRUCTURE_SHARING_MODE_ALLOWED                         :Allowed
+STR_INFRASTRUCTURE_SHARING_MODE_RESTRICTED                      :Restricted
+STR_INFRASTRUCTURE_SHARING_RAIL_FEE                             :Rail fee per tile:
+STR_INFRASTRUCTURE_SHARING_ROAD_FEE                             :Road fee per tile:
+STR_INFRASTRUCTURE_SHARING_STATION_FEE                          :Station fee per use:
+STR_INFRASTRUCTURE_SHARING_AIRPORT_FEE                          :Airport fee per use:
+STR_INFRASTRUCTURE_SHARING_APPLY                                :{BLACK}Apply
+STR_INFRASTRUCTURE_SHARING_APPLY_TOOLTIP                        :Apply infrastructure sharing configuration
+
+STR_CREATE_SUBSIDIARY_QUERY_TOOLTIP                             :Enter the name for the new subsidiary company
+
 
 STR_BUY_COMPANY_MESSAGE                                         :{WHITE}We are looking for a transport company to take-over our company.{}{}Do you want to purchase {COMPANY} for {CURRENCY_LONG}?
 STR_BUY_COMPANY_HOSTILE_TAKEOVER                                :{WHITE}In a hostile takeover of {COMPANY} you will purchase all assets, pay off all loans, and pay two years worth of profits.{}{}The total is estimated to be {CURRENCY_LONG}.{}{}Do you want to continue this hostile takeover?

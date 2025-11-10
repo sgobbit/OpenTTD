@@ -116,11 +116,15 @@ add_files(
     company_base.h
     company_cmd.cpp
     company_cmd.h
+    company_extended.cpp
+    company_extended_func.h
+    company_extended_type.h
     company_func.h
     company_gui.cpp
     company_gui.h
     company_manager_face.h
     company_type.h
+    infrastructure_sharing_gui.cpp
     console.cpp
     console_cmds.cpp
     console_func.h

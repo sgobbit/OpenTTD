@@ -541,6 +541,16 @@ static const SaveLoad _company_desc[] = {
 	SLE_CONDVAR(CompanyProperties, terraform_limit,       SLE_UINT32,                SLV_156, SL_MAX_VERSION),
 	SLE_CONDVAR(CompanyProperties, clear_limit,           SLE_UINT32,                SLV_156, SL_MAX_VERSION),
 	SLE_CONDVAR(CompanyProperties, tree_limit,            SLE_UINT32,                SLV_175, SL_MAX_VERSION),
+	
+	/* Extended company features */
+	SLE_CONDVAR(CompanyProperties, company_type,          SLE_UINT8,                 SLV_COMPANY_EXTENDED_FEATURES, SL_MAX_VERSION),
+	SLE_CONDVAR(CompanyProperties, parent_company,        SLE_UINT8,                 SLV_COMPANY_EXTENDED_FEATURES, SL_MAX_VERSION),
+	SLE_CONDVAR(CompanyProperties, infra_sharing_mode,    SLE_UINT8,                 SLV_COMPANY_EXTENDED_FEATURES, SL_MAX_VERSION),
+	SLE_CONDVAR(CompanyProperties, infra_fees.rail_fee_per_tile,    SLE_INT64,      SLV_COMPANY_EXTENDED_FEATURES, SL_MAX_VERSION),
+	SLE_CONDVAR(CompanyProperties, infra_fees.road_fee_per_tile,    SLE_INT64,      SLV_COMPANY_EXTENDED_FEATURES, SL_MAX_VERSION),
+	SLE_CONDVAR(CompanyProperties, infra_fees.station_fee_per_use,  SLE_INT64,      SLV_COMPANY_EXTENDED_FEATURES, SL_MAX_VERSION),
+	SLE_CONDVAR(CompanyProperties, infra_fees.airport_fee_per_use,  SLE_INT64,      SLV_COMPANY_EXTENDED_FEATURES, SL_MAX_VERSION),
+	
 	SLEG_STRUCT("settings", SlCompanySettings),
 	SLEG_CONDSTRUCT("old_ai", SlCompanyOldAI,                                        SL_MIN_VERSION, SLV_107),
 	SLEG_STRUCT("cur_economy", SlCompanyEconomy),

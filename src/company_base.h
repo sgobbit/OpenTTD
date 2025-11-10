@@ -17,6 +17,7 @@
 #include "timer/timer_game_economy.h"
 #include "settings_type.h"
 #include "group.h"
+#include "company_extended_type.h"
 
 static const Money COMPANY_MAX_LOAN_DEFAULT = INT64_MIN;
 
@@ -122,6 +123,12 @@ struct CompanyProperties {
 
 	EngineRenewList engine_renew_list = nullptr; ///< Engine renewals of this company.
 	CompanySettings settings{}; ///< settings specific for each company
+
+	/* Extended company features */
+	CompanyHierarchyType company_type = CHT_HOLDING; ///< Type of company (holding or subsidiary)
+	CompanyID parent_company = INVALID_OWNER; ///< Parent company ID if this is a subsidiary
+	InfrastructureSharingMode infra_sharing_mode = ISM_DISABLED; ///< Infrastructure sharing mode
+	InfrastructureFee infra_fees{}; ///< Infrastructure usage fees
 };
 
 struct Company : CompanyProperties, CompanyPool::PoolItem<&_company_pool> {

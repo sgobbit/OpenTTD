@@ -11,6 +11,7 @@
 #include "company_base.h"
 #include "company_func.h"
 #include "company_gui.h"
+#include "company_extended_func.h"
 #include "core/backup_type.hpp"
 #include "town.h"
 #include "news_func.h"
@@ -74,6 +75,12 @@ Company::Company(StringID name_1, bool is_ai)
 	this->clear_limit        = (uint32_t)_settings_game.construction.clear_frame_burst << 16;
 	this->tree_limit         = (uint32_t)_settings_game.construction.tree_frame_burst << 16;
 	this->build_object_limit = (uint32_t)_settings_game.construction.build_object_frame_burst << 16;
+
+	/* Initialize extended company features */
+	this->company_type = CHT_HOLDING;
+	this->parent_company = INVALID_OWNER;
+	this->infra_sharing_mode = ISM_DISABLED;
+	InitializeInfrastructureFees(this);
 
 	InvalidateWindowData(WC_PERFORMANCE_DETAIL, 0, CompanyID::Invalid());
 }
@@ -1522,4 +1529,150 @@ std::optional<CompanyManagerFace> ParseCompanyManagerFaceCode(std::string_view s
 	cmf.bits = MaskCompanyManagerFaceBits(cmf, vars);
 
 	return cmf;
+}
+
+/**
+ * Create a subsidiary company.
+ * @param flags operation to perform
+ * @param name name of the new subsidiary
+ * @return the cost of this operation or an error
+ */
+CommandCost CmdCreateSubsidiary(DoCommandFlags flags, const std::string &name)
+{
+if (!_settings_game.economy.enable_company_subsidiaries) return CMD_ERROR;
+
+Company *parent = Company::GetIfValid(_current_company);
+if (parent == nullptr) return CMD_ERROR;
+
+/* Only holdings can create subsidiaries */
+if (parent->company_type != CHT_HOLDING) return CommandCost(STR_ERROR_MESSAGE);
+
+/* Check if we can create more companies */
+if (!CanCreateSubsidiary(_current_company)) return CommandCost(STR_ERROR_MESSAGE);
+
+if (flags.Test(DoCommandFlag::Execute)) {
+/* Find a free company slot */
+CompanyID new_company = INVALID_COMPANY;
+for (CompanyID c = COMPANY_FIRST; c < MAX_COMPANIES; c++) {
+if (!Company::IsValidID(c)) {
+new_company = c;
+break;
+}
+}
+
+if (new_company == INVALID_COMPANY) return CommandCost(STR_ERROR_MESSAGE);
+
+/* Create the subsidiary */
+Company *subsidiary = new (new_company) Company(STR_SV_UNNAMED, false);
+subsidiary->company_type = CHT_SUBSIDIARY;
+subsidiary->parent_company = _current_company;
+subsidiary->colour = parent->colour; /* Start with parent's colour */
+
+if (!name.empty()) {
+subsidiary->name = name;
+}
+
+/* Initialize with some starting capital from parent */
+Money starting_capital = 100000; /* £100,000 */
+if (parent->money >= starting_capital) {
+parent->money -= starting_capital;
+subsidiary->money = starting_capital;
+}
+
+InvalidateWindowData(WC_COMPANY_LEAGUE, 0, 0);
+}
+
+return CommandCost();
+}
+
+/**
+ * Set infrastructure sharing mode for current company.
+ * @param flags operation to perform
+ * @param mode infrastructure sharing mode (InfrastructureSharingMode)
+ * @return the cost of this operation or an error
+ */
+CommandCost CmdSetInfrastructureSharing(DoCommandFlags flags, uint8_t mode)
+{
+if (!_settings_game.economy.enable_infrastructure_sharing) return CMD_ERROR;
+if (mode >= 3) return CMD_ERROR; /* Invalid mode */
+
+Company *c = Company::GetIfValid(_current_company);
+if (c == nullptr) return CMD_ERROR;
+
+if (flags.Test(DoCommandFlag::Execute)) {
+c->infra_sharing_mode = (InfrastructureSharingMode)mode;
+InvalidateWindowData(WC_COMPANY, _current_company);
+}
+
+return CommandCost();
+}
+
+/**
+ * Set infrastructure usage fees for current company.
+ * @param flags operation to perform
+ * @param rail_fee fee per rail tile
+ * @param road_fee fee per road tile
+ * @param station_fee fee per station use
+ * @param airport_fee fee per airport use
+ * @return the cost of this operation or an error
+ */
+CommandCost CmdSetInfrastructureFees(DoCommandFlags flags, Money rail_fee, Money road_fee, Money station_fee, Money airport_fee)
+{
+if (!_settings_game.economy.enable_infrastructure_sharing) return CMD_ERROR;
+
+Company *c = Company::GetIfValid(_current_company);
+if (c == nullptr) return CMD_ERROR;
+
+/* Validate fees (must be non-negative and reasonable) */
+if (rail_fee < 0 || road_fee < 0 || station_fee < 0 || airport_fee < 0) return CMD_ERROR;
+if (rail_fee > 10000 || road_fee > 10000 || station_fee > 100000 || airport_fee > 200000) return CMD_ERROR;
+
+if (flags.Test(DoCommandFlag::Execute)) {
+c->infra_fees.rail_fee_per_tile = rail_fee;
+c->infra_fees.road_fee_per_tile = road_fee;
+c->infra_fees.station_fee_per_use = station_fee;
+c->infra_fees.airport_fee_per_use = airport_fee;
+InvalidateWindowData(WC_COMPANY, _current_company);
+}
+
+return CommandCost();
+}
+
+/**
+ * Transfer funds between current company and another related company.
+ * @param flags operation to perform
+ * @param dest_company destination company
+ * @param amount amount to transfer
+ * @return the cost of this operation or an error
+ */
+CommandCost CmdTransferCompanyFunds(DoCommandFlags flags, CompanyID dest_company, Money amount)
+{
+if (!_settings_game.economy.enable_company_subsidiaries) return CMD_ERROR;
+
+Company *from = Company::GetIfValid(_current_company);
+Company *to = Company::GetIfValid(dest_company);
+
+if (from == nullptr || to == nullptr) return CMD_ERROR;
+if (amount <= 0) return CMD_ERROR;
+if (from->money < amount) return CommandCost(STR_ERROR_CAN_T_BUY);
+
+/* Check if companies are related */
+bool related = false;
+if (IsSubsidiaryOf(_current_company, dest_company) || IsSubsidiaryOf(dest_company, _current_company)) {
+related = true;
+}
+if (from->parent_company == to->parent_company && from->parent_company != INVALID_OWNER) {
+related = true; /* Siblings */
+}
+
+if (!related) return CommandCost(STR_ERROR_MESSAGE);
+
+if (flags.Test(DoCommandFlag::Execute)) {
+from->money -= amount;
+to->money += amount;
+CompanyAdminUpdate(from);
+CompanyAdminUpdate(to);
+}
+
+return CommandCost();
 }

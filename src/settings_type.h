@@ -553,6 +553,12 @@ struct EconomySettings {
 	uint16_t minutes_per_calendar_year;      ///< minutes per calendar year. Special value 0 means that calendar time is frozen.
 	uint16_t town_cargo_scale;               ///< scale cargo production of towns by this percentage.
 	uint16_t industry_cargo_scale;           ///< scale cargo production of industries by this percentage.
+	
+	/* Extended company features */
+	bool   enable_company_subsidiaries;      ///< allow companies to create subsidiaries
+	bool   enable_infrastructure_sharing;    ///< allow companies to share infrastructure
+	bool   enable_asset_trading;             ///< allow companies to trade assets
+	bool   enable_stock_market;              ///< enable the stock market system
 };
 
 struct LinkGraphSettings {
